@@ -4,7 +4,7 @@
 
 ## How to?
 * Connect with your favorite package manager.
-  * For example `Gradle` with `Jitpack`
+  * For example `Gradle` with `Jitpack` [![](https://jitpack.io/v/AldieNightStar/klisp.svg)](https://jitpack.io/#AldieNightStar/klisp)
 * Use `LispLexer.lex` to lex the text. It will return list with tokens
 * List with tokens then gets passed into `LispParser.parse` it will return `LispData` list
 * Then list of `LispData` stuff is used to eval, convert to `JSON` or to do some other nasty stuff :)
