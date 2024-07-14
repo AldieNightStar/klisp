@@ -5,8 +5,6 @@ import com.google.gson.*
 private val gson = Gson()
 
 object LispToJson {
-    fun convertToStr(dat: List<LispData>) = JsonArray().also { dat.map(this::convert).forEach(it::add) }.toString()
-
     fun convert(dat: LispData): JsonElement {
         return when (dat) {
             is LispValue -> gson.toJsonTree(dat.value)
