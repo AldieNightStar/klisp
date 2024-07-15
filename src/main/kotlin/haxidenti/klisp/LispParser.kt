@@ -4,20 +4,20 @@ import java.util.*
 
 object LispParser {
     fun parse(tokens: List<LispToken>): List<LispData> {
-        val stack = Stack<MutableList<LispData>>()
-        stack.push(mutableListOf())
+        val stack = Stack<LispNode>()
+        stack.push(LispNode())
         for (token in tokens) {
             if (token.type == LispTokenType.SPACE) continue
             if (token.type == LispTokenType.BRACKET) {
                 if (token.data == "(") {
-                    stack.add(mutableListOf())
+                    stack.add(LispNode())
                 } else if (token.data == ")") {
-                    val lastNode = stack.pop().toNode()
-                    stack.peek().add(lastNode)
+                    val lastNode = stack.pop()
+                    stack.peek().values.add(lastNode)
                 }
             } else {
                 token.toLispData()?.run {
-                    stack.peek().add(this)
+                    stack.peek().values.add(this)
                 }
             }
         }
@@ -30,11 +30,7 @@ object LispParser {
         }
 
         // Finally process the Tree
-        return LispTreeProcessor.process(stack.first())
-    }
-
-    private fun MutableList<LispData>.toNode(): LispNode {
-        return LispNode(this)
+        return LispTreeProcessor.process(stack.first().values)
     }
 
     private fun LispToken.toLispData(): LispData? {
