@@ -28,7 +28,9 @@ object LispParser {
         } else if (size < 1) {
             throw IllegalStateException("Redundant closing brackets found")
         }
-        return stack.first()
+
+        // Finally process the Tree
+        return LispTreeProcessor.process(stack.first())
     }
 
     private fun MutableList<LispData>.toNode(): LispNode {
