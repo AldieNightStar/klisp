@@ -4,12 +4,19 @@ import java.util.*
 
 object LispParser {
     fun parse(tokens: List<LispToken>): List<LispData> {
+        var line = 1
         val stack = Stack<LispNode>()
-        stack.push(LispNode())
+        stack.push(LispNode(line=line))
         for (token in tokens) {
+            // Skip space tokens
+            // But \n tokens make it increase the line count
+            if (token.type == LispTokenType.SPACE) {
+                line += token.data.count { it == '\n' }
+                continue
+            }
             if (token.type == LispTokenType.BRACKET) {
                 if (token.data == "(") {
-                    stack.add(LispNode())
+                    stack.add(LispNode(line=line))
                 } else if (token.data == ")") {
                     val lastNode = stack.pop()
                     stack.peek().values.add(lastNode)

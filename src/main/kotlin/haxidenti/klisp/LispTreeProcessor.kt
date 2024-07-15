@@ -12,15 +12,15 @@ object LispTreeProcessor {
         }
     }
 
-    private fun processCall(d: LispNode): LispNode? {
-        if (d.values.isEmpty()) return d
-        val callee = d.values.first()
+    private fun processCall(node: LispNode): LispNode? {
+        if (node.values.isEmpty()) return node
+        val callee = node.values.first()
 
         // (comment ...) need to be ignored
         if (callee.isWord("comment")) return null
 
         // Return new node with processed sub nodes ALSO
-        return LispNode(process(d.values).toMutableList())
+        return LispNode(process(node.values).toMutableList(), node.line)
     }
 
     private fun LispData.isWord(name: String): Boolean {

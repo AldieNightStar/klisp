@@ -3,7 +3,10 @@ package haxidenti.klisp
 sealed class LispData;
 
 class LispValue(val value: Any) : LispData()
-class LispNode(val values: MutableList<LispData> = mutableListOf()) : LispData()
+class LispNode(
+    val values: MutableList<LispData> = mutableListOf(),
+    val line: Int,
+) : LispData()
 class LispWord(val name: String) : LispData()
 
 data object LispNull : LispData()

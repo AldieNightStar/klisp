@@ -20,6 +20,7 @@ object LispToJson {
         val obj = JsonObject()
         val arr = JsonArray().also { node.values.map(this::convert).forEach(it::add) }
         obj.add(".call", arr)
+        obj.add(".line", JsonPrimitive(node.line))
         return obj
     }
 }
