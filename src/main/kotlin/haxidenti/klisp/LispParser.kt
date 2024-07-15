@@ -43,6 +43,7 @@ object LispParser {
             LispTokenType.NUMBER -> LispValue(this.data.toDouble())
             LispTokenType.WORD -> when (this.data) {
                 "null" -> LispNull
+                "nil" -> LispNull
                 "true" -> LispValue(true)
                 "false" -> LispValue(false)
                 else -> LispWord(this.data)
