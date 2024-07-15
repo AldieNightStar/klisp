@@ -7,7 +7,6 @@ object LispParser {
         val stack = Stack<LispNode>()
         stack.push(LispNode())
         for (token in tokens) {
-            if (token.type == LispTokenType.SPACE) continue
             if (token.type == LispTokenType.BRACKET) {
                 if (token.data == "(") {
                     stack.add(LispNode())

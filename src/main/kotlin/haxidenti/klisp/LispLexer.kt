@@ -1,7 +1,7 @@
 package haxidenti.klisp
 
 private const val SPACES = " \t\r\n"
-private const val BRACKETS = "()[]{}"
+private const val BRACKETS = "()"
 private const val NUMBERS = "0123456789"
 private const val WORD_BREAKER = ",;$BRACKETS$SPACES"
 
