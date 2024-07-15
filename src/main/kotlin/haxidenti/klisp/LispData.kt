@@ -10,7 +10,7 @@ data object LispNull : LispData()
 
 // ==================================
 
-enum class LispTokenType { WORD, SPACE, STRING, BRACKET, COMMENT, NUMBER }
+enum class LispTokenType { WORD, SPACE, STRING, BRACKET, COMMENT, NUMBER, DIVIDER }
 
 data class LispToken(
     val data: String,

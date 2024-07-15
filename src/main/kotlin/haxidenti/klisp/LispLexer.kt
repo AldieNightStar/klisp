@@ -3,6 +3,7 @@ package haxidenti.klisp
 private const val SPACES = " \t\r\n"
 private const val BRACKETS = "()[]{}"
 private const val NUMBERS = "0123456789"
+private const val WORD_BREAKER = ",;$BRACKETS$SPACES"
 
 object LispLexer {
 
@@ -25,6 +26,7 @@ object LispLexer {
         lexKeyword(line)?.run { return this }
         lexBracket(line)?.run { return this }
         lexNumber(line)?.run { return this }
+        lexComma(line)?.run { return this }
         lexWord(line)?.run { return this }
 
         throw IllegalStateException("Can't find such a token type for: $line")
@@ -87,13 +89,18 @@ object LispLexer {
     fun lexWord(line: String): LispToken? {
         var count = 0
         for (c in line) {
-            if (c in SPACES || c in BRACKETS || c == ';') {
-                break
-            }
+            if (c in WORD_BREAKER) break
             count += 1
         }
         if (count < 1) return null
         return LispToken(line.substring(0, count), count, LispTokenType.WORD)
+    }
+
+    fun lexComma(line: String): LispToken? {
+        if (line.startsWith(",")) {
+            return LispToken(",", 1, LispTokenType.DIVIDER)
+        }
+        return null
     }
 
     fun lexBracket(line: String): LispToken? {
